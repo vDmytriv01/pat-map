@@ -10,6 +10,10 @@ public interface ReviewService {
 
     List<ReviewDto> getAll();
 
+    List<ReviewDto> getByPlaceId(Long placeId);
+
+    List<ReviewDto> getByUserId(Long userId);
+
     ReviewDto getById(Long id);
 
     ReviewDto update(Long id, ReviewDto dto);

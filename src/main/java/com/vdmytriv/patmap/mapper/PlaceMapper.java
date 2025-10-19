@@ -19,6 +19,7 @@ public interface PlaceMapper {
     @Mapping(target = "category", ignore = true)
     @Mapping(target = "reviews", ignore = true)
     @Mapping(target = "bookings", ignore = true)
+    @Mapping(target = "favoritedBy", ignore = true)
     Place toEntity(CreatePlaceRequestDto dto);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
@@ -26,5 +27,6 @@ public interface PlaceMapper {
     @Mapping(target = "category", ignore = true)
     @Mapping(target = "reviews", ignore = true)
     @Mapping(target = "bookings", ignore = true)
+    @Mapping(target = "favoritedBy", ignore = true)
     void updatePlaceFromDto(UpdatePlaceRequestDto dto, @MappingTarget Place place);
 }

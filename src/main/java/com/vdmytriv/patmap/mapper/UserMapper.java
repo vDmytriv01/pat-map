@@ -21,11 +21,13 @@ public interface UserMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "roles", ignore = true)
+    @Mapping(target = "favoritePlaces", ignore = true)
     User toEntity(UserDto dto);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "roles", ignore = true)
+    @Mapping(target = "favoritePlaces", ignore = true)
     void updateUserFromDto(UserDto dto, @MappingTarget User user);
 
     default Set<String> mapRoleNames(Set<Role> roles) {

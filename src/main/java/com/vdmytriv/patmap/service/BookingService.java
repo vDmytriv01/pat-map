@@ -10,9 +10,13 @@ public interface BookingService {
 
     List<BookingDto> getAll();
 
+    List<BookingDto> getByUserId(Long userId);
+
     BookingDto getById(Long id);
 
     BookingDto update(Long id, BookingDto dto);
 
     void delete(Long id);
+
+    BookingDto cancel(Long id);
 }
