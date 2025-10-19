@@ -1,7 +1,18 @@
 package com.vdmytriv.patmap.service;
 
-import org.springframework.stereotype.Service;
+import com.vdmytriv.patmap.dto.user.UserDto;
 
-@Service
-public class UserService {
+import java.util.List;
+
+public interface UserService {
+
+    UserDto create(UserDto dto);
+
+    List<UserDto> getAll();
+
+    UserDto getById(Long id);
+
+    UserDto update(Long id, UserDto dto);
+
+    void delete(Long id);
 }
