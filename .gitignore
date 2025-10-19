@@ -26,5 +26,3 @@ Thumbs.db
 # Spring Boot
 .spring-boot-devtools.properties
 
-# Environment variables
-.env
