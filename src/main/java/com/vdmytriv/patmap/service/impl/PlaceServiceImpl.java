@@ -43,6 +43,24 @@ public class PlaceServiceImpl implements PlaceService {
 
     @Override
     @Transactional(readOnly = true)
+    public List<PlaceDto> search(Long categoryId, String city) {
+        List<Place> places;
+        if (categoryId != null && city != null && !city.isBlank()) {
+            places = placeRepository.findAllByCategoryIdAndAddressContainingIgnoreCase(categoryId, city);
+        } else if (categoryId != null) {
+            places = placeRepository.findAllByCategoryId(categoryId);
+        } else if (city != null && !city.isBlank()) {
+            places = placeRepository.findAllByAddressContainingIgnoreCase(city);
+        } else {
+            return getAll();
+        }
+        return places.stream()
+                .map(placeMapper::toDto)
+                .toList();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public PlaceDto getById(Long id) {
         Place place = getPlace(id);
         return placeMapper.toDto(place);

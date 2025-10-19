@@ -45,6 +45,22 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     @Transactional(readOnly = true)
+    public List<ReviewDto> getByPlaceId(Long placeId) {
+        return reviewRepository.findAllByPlaceId(placeId).stream()
+                .map(reviewMapper::toDto)
+                .toList();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ReviewDto> getByUserId(Long userId) {
+        return reviewRepository.findAllByUserId(userId).stream()
+                .map(reviewMapper::toDto)
+                .toList();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public ReviewDto getById(Long id) {
         Review review = getReview(id);
         return reviewMapper.toDto(review);

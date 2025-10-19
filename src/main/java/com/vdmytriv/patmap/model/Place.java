@@ -14,7 +14,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@ToString(exclude = {"category", "reviews", "bookings"})
+@ToString(exclude = {"category", "reviews", "bookings", "favoritedBy"})
 @Entity
 @Table(name = "places")
 public class Place {
@@ -54,4 +54,7 @@ public class Place {
 
     @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Booking> bookings = new HashSet<>();
+
+    @ManyToMany(mappedBy = "favoritePlaces")
+    private Set<User> favoritedBy = new HashSet<>();
 }

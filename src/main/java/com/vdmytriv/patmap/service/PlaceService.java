@@ -12,6 +12,8 @@ public interface PlaceService {
 
     List<PlaceDto> getAll();
 
+    List<PlaceDto> search(Long categoryId, String city);
+
     PlaceDto getById(Long id);
 
     PlaceDto update(Long id, UpdatePlaceRequestDto requestDto);

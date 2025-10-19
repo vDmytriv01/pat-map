@@ -28,6 +28,14 @@ public class User {
     )
     private Set<Role> roles = new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(
+            name = "user_favorites",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "place_id")
+    )
+    private Set<Place> favoritePlaces = new HashSet<>();
+
     public Long getId() {
         return id;
     }
@@ -58,6 +66,14 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Set<Place> getFavoritePlaces() {
+        return favoritePlaces;
+    }
+
+    public void setFavoritePlaces(Set<Place> favoritePlaces) {
+        this.favoritePlaces = favoritePlaces;
     }
 
     @Override

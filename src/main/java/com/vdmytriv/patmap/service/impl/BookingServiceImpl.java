@@ -3,6 +3,7 @@ package com.vdmytriv.patmap.service.impl;
 import com.vdmytriv.patmap.dto.booking.BookingDto;
 import com.vdmytriv.patmap.mapper.BookingMapper;
 import com.vdmytriv.patmap.model.Booking;
+import com.vdmytriv.patmap.model.BookingStatus;
 import com.vdmytriv.patmap.model.Place;
 import com.vdmytriv.patmap.model.User;
 import com.vdmytriv.patmap.repository.BookingRepository;
@@ -31,6 +32,9 @@ public class BookingServiceImpl implements BookingService {
         Booking booking = bookingMapper.toEntity(dto);
         booking.setUser(getUser(dto.getUserId()));
         booking.setPlace(getPlace(dto.getPlaceId()));
+        if (booking.getStatus() == null) {
+            booking.setStatus(BookingStatus.PENDING);
+        }
         Booking saved = bookingRepository.save(booking);
         return bookingMapper.toDto(saved);
     }
@@ -39,6 +43,14 @@ public class BookingServiceImpl implements BookingService {
     @Transactional(readOnly = true)
     public List<BookingDto> getAll() {
         return bookingRepository.findAll().stream()
+                .map(bookingMapper::toDto)
+                .toList();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<BookingDto> getByUserId(Long userId) {
+        return bookingRepository.findAllByUserId(userId).stream()
                 .map(bookingMapper::toDto)
                 .toList();
     }
@@ -72,6 +84,15 @@ public class BookingServiceImpl implements BookingService {
     public void delete(Long id) {
         Booking booking = getBooking(id);
         bookingRepository.delete(booking);
+    }
+
+    @Override
+    @Transactional
+    public BookingDto cancel(Long id) {
+        Booking booking = getBooking(id);
+        booking.setStatus(BookingStatus.CANCELED);
+        Booking saved = bookingRepository.save(booking);
+        return bookingMapper.toDto(saved);
     }
 
     private Booking getBooking(Long id) {
